@@ -37,4 +37,6 @@ article {
 
 footer {
     text-align:         right;
+    position:           absolute;
+    bottom:             0px !important;
 }
