@@ -1,0 +1,40 @@
+.navbar {
+    font-family:        'Consolas', 'Menlo', monospace !important;
+    background:         #232 !important;
+    font-weight:        bold;
+    font-size:          16px;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    background-color:   #232 !important;
+    color:              #cfc !important;
+}
+
+.well {
+    background-color:   #d9dfd9 !important;
+    border-color:       #b9bfb9 !important;
+}
+
+a:visited, a {
+
+    text-decoration:    none;
+    color:              #7a7 !important;
+}
+body {
+    background:         #c9cfc9 !important;
+    font-family:        'Garamond', serif !important;
+    padding-top:        50px;
+
+}
+
+body > .container{
+    background:         #c9cfc9;
+}
+
+article {
+    font-size:          16px !important;
+}
+
+footer {
+    text-align:         right;
+}

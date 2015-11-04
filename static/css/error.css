@@ -1,0 +1,23 @@
+body{
+    background-color:   gray !important;
+    color:              black !important;
+}
+
+h1 {
+    font-weight:        normal;
+    font-size:          72px !important;
+}
+
+p, article {
+    font-size:          36px;
+}
+
+a, a:visited {
+    color:              #353 !important;
+    text-decoration:    none !important;
+}
+
+a:focus, a:hover {
+    color:              #afa !important;
+    text-decoration:    none !important;
+}
