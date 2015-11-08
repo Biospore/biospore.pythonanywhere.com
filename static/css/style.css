@@ -21,10 +21,11 @@ a:visited, a {
     color:              #585 !important;
 }
 
-.aimg {
+.avaimg {
     float: left;
     padding-right:      10px;
     padding-bottom:     10px;
+    margin:             5px;
 }
 
 .icon-bar {
