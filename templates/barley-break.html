@@ -1,0 +1,95 @@
+{% extends "base/layout.html" %}
+
+{% block title %}Barley-Break{% endblock %}
+
+{% block content %}
+    <div class="row" row="1">
+        <div class="col-md-4"></div>
+        <div class="col-md-1 bbblock" col="1"></div>
+        <div class="col-md-1 bbblock" col="2"></div>
+        <div class="col-md-1 bbblock" col="3"></div>
+        <div class="col-md-1 bbblock" col="4"></div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row" row="2">
+        <div class="col-md-4"></div>
+        <div class="col-md-1 bbblock" col="1"></div>
+        <div class="col-md-1 bbblock" col="2"></div>
+        <div class="col-md-1 bbblock" col="3"></div>
+        <div class="col-md-1 bbblock" col="4"></div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row" row="3">
+        <div class="col-md-4"></div>
+        <div class="col-md-1 bbblock" col="1"></div>
+        <div class="col-md-1 bbblock" col="2"></div>
+        <div class="col-md-1 bbblock" col="3"></div>
+        <div class="col-md-1 bbblock" col="4"></div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row" row="4">
+        <div class="col-md-4"></div>
+        <div class="col-md-1 bbblock" col="1"></div>
+        <div class="col-md-1 bbblock" col="2"></div>
+        <div class="col-md-1 bbblock" col="3"></div>
+        <div class="col-md-1 bbblock" col="4"></div>
+        <div class="col-md-4"></div>
+    </div>
+    <script type="text/javascript">
+        document.onload = generate();
+        function check(){
+            var lst = document.getElementsByClassName('bbblock');
+            var t = 0;
+            for (var i=1; i<lst.length;i++){
+                if (lst[i].innerHTML == i){
+                    t++;
+                }
+            }
+            if (t == 15){
+                alert('profit');
+            }
+            setInterval(check, 5);
+        }
+        function generate() {
+//            check();
+            var lst = document.getElementsByClassName('bbblock');
+            for (var i=0; i<lst.length;i++){
+                lst[i].style['font-weight'] = 'bold';
+                lst[i].style['font-size'] = '36px';
+            }
+            for (var i=1; i<lst.length;i++){
+                lst[i].innerHTML = i;
+            }
+            for (var i=0; i<lst.length;i++){
+             var item1 = lst[Math.floor(Math.random()*lst.length)];
+             var item2 = lst[Math.floor(Math.random()*lst.length)];
+             swap(item1, item2);
+            }
+        }
+        function swap(obj1, obj2){
+            var ih1 = obj1.innerHTML;
+            var ih2 = obj2.innerHTML;
+            obj1.innerHTML = ih2;
+            obj2.innerHTML = ih1;
+        }
+        document.body.onclick = function(e){
+            var lst = document.getElementsByClassName('bbblock');
+            for (var i=0; i<lst.length;i++){
+                if (lst[i].innerHTML === "" && lst[i] != e.target){
+                    var row1 = lst[i].parentNode.getAttribute("row");
+                    var row0 = e.target.parentNode.getAttribute("row");
+                    var row = Math.abs(row1 - row0);
+                    if (row <=1){
+                        var col1 = lst[i].getAttribute("col");
+                        var col0 = e.target.getAttribute("col");
+                        var col = Math.abs(col1 - col0)
+                        if (col <=1 & (row + col) <=1 ){
+                            //console.log('profit', row0, row1, col0, col1);
+                            swap(lst[i], e.target);
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+{% endblock %}

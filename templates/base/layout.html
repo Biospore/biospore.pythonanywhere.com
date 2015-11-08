@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<!--link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" /-->
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %} - Biospore's page</title>
+	    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css" />
+         <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script type="text/javascript">
+            function init() {
+                document.body.onclick = function(e) {
+                    if (e.target.id == 'tbutton'){
+                        var menu = document.getElementById('menu');
+                        var lst = menu.className.split(' ');
+                        var flag = true;
+                        var cn = [];
+                        for (var i = 0; i<lst.length; i++){
+                            if (lst[i] == 'collapse'){
+                                flag = false;
+                            }
+                            else{
+                                cn.push(lst[i]);
+                            }
+                        }
+                        if (flag == true){
+                            cn.push('collapse');
+                        }
+                        menu.className = cn.join(' ');
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body onload="init();">
+        {% include "base/menu.html" %}
+        <div class="container">
+
+            {% block content %}{% endblock %}
+            {% include "base/footer.html" %}
+        </div>
+    </body>
+</html>

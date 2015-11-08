@@ -1,7 +1,18 @@
-{% extends "layout.html" %}
+{% extends "base/layout.html" %}
 
 {% block title %}Gallery{% endblock %}
 
 {% block content %}
+    <ul class="row ul">
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic0.jpg') }}" alt="Image Not Found"/></li>
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic1.jpg') }}" alt="Image Not Found"/></li>
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic4.jpg') }}" alt="Image Not Found"/></li>
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic5.jpg') }}" alt="Image Not Found"/></li>
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic6.jpg') }}" alt="Image Not Found"/></li>
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic7.jpg') }}" alt="Image Not Found"/></li>
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic8.jpg') }}" alt="Image Not Found"/></li>
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic2.jpg') }}" alt="Image Not Found"/></li>
+        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic3.jpg') }}" alt="Image Not Found"/></li>
+    </ul>
 
 {% endblock %}

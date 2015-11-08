@@ -18,8 +18,23 @@
 a:visited, a {
 
     text-decoration:    none;
-    color:              #7a7 !important;
+    color:              #585 !important;
 }
+
+.aimg {
+    float: left;
+    padding-right:      10px;
+    padding-bottom:     10px;
+}
+
+.icon-bar {
+    background-color:   #585;
+}
+
+#tbutton {
+    border-color:       #585;
+}
+
 body {
     background:         #c9cfc9 !important;
     font-family:        'Garamond', serif !important;
@@ -35,8 +50,50 @@ article {
     font-size:          16px !important;
 }
 
-footer {
-    text-align:         right;
-    position:           absolute;
+.footer {
     bottom:             0px !important;
+}
+
+hr {
+    border-style:       solid none none;
+    border-color:       #dadfda !important;
+}
+
+.bbblock {
+    border:             1px solid #232;
+    text-align:         center;
+    background-color:   #999f99 !important;
+    width:              90px;
+    height:             90px;
+    line-height:        90px;
+}
+
+.ul > li {
+    list-style:         outside none none;
+}
+
+li > img {
+    max-height:         100%;
+    max-width:          100%;
+}
+
+.well {
+    overflow:           hidden;
+}
+
+.well > p {
+    text-align:         justify;
+}
+
+.ul {
+    padding:            0 0 0 0;
+    margin:             0 0 0 0;
+}
+.ul li {
+    list-style:         none;
+    margin-bottom:      25px;
+}
+.ul li img {
+    cursor:             pointer;
+
 }

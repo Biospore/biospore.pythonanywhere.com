@@ -1,0 +1,24 @@
+<div class="navbar navbar-fixed-top">
+    <!--div class="navbar-header">
+        <a class="navbar-brand" href="/"></a>
+    </div-->
+
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button" id="tbutton">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="menu">
+            <ul class="nav navbar-nav">
+                {% for href, text in menu_items %}
+                <li><a href="{{ href }}">{{ text }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<br/>
+
