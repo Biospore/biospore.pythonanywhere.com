@@ -26,6 +26,7 @@ def gallery():
     images = get_all_imgs('static/images')
     for image in images:
         gallery.append(tuple(['images/'+image, 'thumbnails/'+image[:-4]+'_thumb'+image[-4:]]))
+    gallery = [('images/pic7.jpg', 'thumbnails/pic7_thumb.jpg'), ('images/pic0.jpg', 'thumbnails/pic0_thumb.jpg'), ('images/pic2.jpg', 'thumbnails/pic2_thumb.jpg'), ('images/pic6.jpg', 'thumbnails/pic6_thumb.jpg'), ('images/pic4.jpg', 'thumbnails/pic4_thumb.jpg'), ('images/pic1.jpg', 'thumbnails/pic1_thumb.jpg'), ('images/pic8.jpg', 'thumbnails/pic8_thumb.jpg'), ('images/pic5.jpg', 'thumbnails/pic5_thumb.jpg'), ('images/pic3.jpg', 'thumbnails/pic3_thumb.jpg')]
     return render_template('gallery.html', gallery=gallery, query=query)
 
 
