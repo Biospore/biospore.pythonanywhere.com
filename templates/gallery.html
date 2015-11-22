@@ -2,17 +2,199 @@
 
 {% block title %}Gallery{% endblock %}
 
+{% block head %}
+
+<style type="text/css">
+#tmp_image {
+    width: auto;
+    height: auto;
+    max-width:  600px;
+    max-height:  600px;
+    position: relative;
+    top: auto;
+    left:auto;
+    right: auto;
+    vertical-align: middle;
+    z-index: 1000;
+}
+.thumb_button {
+}
+#tmp_div{
+    top: 50px;
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    text-align: center;
+    right: 80px;
+    bottom: 0;
+    left: 80px;
+    margin: auto;
+    z-index: 1000;
+}
+#blacken{
+  background-color: #000;
+  height: 100%;
+  left: 0;
+  opacity:1;
+  position: fixed; /* Фиксированное положение */
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+#help {
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    right: 80px;
+    bottom: 0;
+    left: 80px;
+    z-index: 1001;
+}
+</style>
+<script type="text/javascript">
+{% if query %}
+console.log('{{query}}');
+{% endif %}
+
+var images = [];
+var current = '';
+{% for image, thumb in gallery %}
+images.push('{{image}}');
+{% endfor %}
+
+document.onkeypress = function(evt) {
+    evt = evt || window.event;
+    if (evt.keyCode == 27) {
+        var el = document.getElementById('tmp_div');
+        if (el){
+            var par = el.parentNode;
+            par.removeChild(el);
+            current = '';
+        }
+        var el = document.getElementById('help');
+        if (el) {
+            var par = el.parentNode;
+            par.removeChild(el);
+        }
+    }
+    else if (evt.keyCode == 112) {
+        help();
+    }
+    else if (evt.keyCode == 37){
+        if (current != ''){
+            var len = images.length;
+            var pos = search(current, images);
+            if (pos == 0){
+                pos = len - 1;
+            }
+            else {
+                pos -= 1;
+            }
+            var img = document.getElementById('tmp_image');
+            img.setAttribute('src', '/static/' + images[pos]);
+            img.setAttribute('alt', '/static/' + images[pos]);
+            current = '/static/' + images[pos];
+        }
+    }
+    else if (evt.keyCode == 39){
+        if (current != ''){
+            var len = images.length;
+            var pos = search(current, images);
+            if (pos == len - 1){
+                pos = 0;
+            }
+            else {
+                pos += 1;
+            }
+            var img = document.getElementById('tmp_image');
+            img.setAttribute('src', '/static/' + images[pos]);
+            img.setAttribute('alt', '/static/' + images[pos]);
+            current = '/static/' + images[pos];
+        }
+    }
+};
+
+function search(element, array){
+    var len = array.length;
+    for (var i=0; i<len;i++){
+        if ('/static/'+array[i] == element){
+            return i;
+        }
+    }
+}
+
+function help(){
+    var el = document.getElementById('help');
+    if (el){
+        var par = el.parentNode;
+        par.removeChild(el);
+        return;
+    }
+    var txt = document.createElement('p');
+    var title = document.createElement('h4');
+    txt.innerHTML = 'ESC - return to gallery & exit help.<br/>';
+    txt.innerHTML += 'F1 - open|close this dialog.<br/>';
+    txt.innerHTML += 'Left arrow - previous image.<br/>';
+    txt.innerHTML += 'Right arrow - next image.<br/>';
+    title.innerHTML = 'Help';
+    var div = document.createElement('div');
+    div.setAttribute('class', 'well container');
+    div.setAttribute('id', 'help');
+    div.appendChild(title);
+    div.appendChild(txt);
+    document.body.appendChild(div);
+};
+
+function clicked(el){
+    var el2 = document.getElementById('tmp_image');
+    if (el2 === null){
+        var img = document.createElement('img');
+        var src = el.getAttribute('src');
+        current = src;
+        img.setAttribute('src', src);
+        img.setAttribute('alt', src);
+        var par = document.body;
+        var div = document.createElement('div');
+        var div2 = document.createElement('div');
+        var divr = document.createElement('div');
+        var divc = document.createElement('div');
+        img.setAttribute('id', 'tmp_image');
+        img.setAttribute('class', 'tmp_image');
+        div.setAttribute('class', 'container');
+        div.setAttribute('id', 'tmp_div');
+        div2.setAttribute('id', 'blacken');
+        divr.setAttribute('class', 'row');
+        divc.setAttribute('class', 'col-md-12 col-xs-12 col-sm-12');
+        divc.setAttribute('style', 'padding: 0!important;');
+        divc.appendChild(img);
+        divc.appendChild(div2);
+        divr.appendChild(divc);
+        div.appendChild(divr);
+        div.setAttribute('onclick', 'clicked(this)');
+        par.appendChild(div);
+    };
+    if (el2 != null){
+        var el2 = document.getElementById('tmp_div');
+        var par = el2.parentNode;
+        par.removeChild(el2);
+        };
+};
+</script>
+{% endblock %}
+
+{% block tail %}
+
+{% endblock %}
+
 {% block content %}
     <ul class="row ul">
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic0.jpg') }}" alt="Image Not Found"/></li>
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic1.jpg') }}" alt="Image Not Found"/></li>
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic4.jpg') }}" alt="Image Not Found"/></li>
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic5.jpg') }}" alt="Image Not Found"/></li>
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic6.jpg') }}" alt="Image Not Found"/></li>
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic7.jpg') }}" alt="Image Not Found"/></li>
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic8.jpg') }}" alt="Image Not Found"/></li>
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic2.jpg') }}" alt="Image Not Found"/></li>
-        <li class="col-md-2 col-xs-4 col-sm-4"><img src="{{ url_for('static', filename='images/pic3.jpg') }}" alt="Image Not Found"/></li>
+        {% for image, thumb in gallery %}
+            <li class="col-md-3 col-xs-3 col-sm-3" style="display:inline-block;text-align:center;height:150px;">
+                <a onclick="return clicked(this);" class="thumb_button" href="#simage={{image}}" src="{{ url_for('static', filename=image) }}" style="">
+                    <img src="{{url_for('static', filename=thumb) }}" alt="Image Not Found" style="position:relative; display:inline-block;vertical-align:middle;"/>
+                </a>
+            </li>
+        {% endfor %}
     </ul>
 
 {% endblock %}

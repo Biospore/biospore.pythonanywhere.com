@@ -1,6 +1,7 @@
+#!/usr/bin/python3
 
-
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from os import walk
 
 
 app = Flask(__name__)
@@ -20,13 +21,23 @@ def about():
 
 @app.route('/gallery/')
 def gallery():
-    return render_template('gallery.html')
+    gallery = []
+    query = request.args.get('current')
+    images = get_all_imgs('static/images')
+    for image in images:
+        gallery.append(tuple(['images/'+image, 'thumbnails/'+image[:-4]+'_thumb'+image[-4:]]))
+    return render_template('gallery.html', gallery=gallery, query=query)
 
 
 @app.route('/barley-break/')
 def bb():
     return render_template('barley-break.html')
 
+def get_all_imgs(folder):
+    files = []
+    for (dirpath, dirnames, filenames) in walk(folder):
+        files.extend(filenames)
+    return files
 
 #@app.route('/<page>/')
 #def autofind(page='index'):
