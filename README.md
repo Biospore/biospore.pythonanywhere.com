@@ -1,3 +1,3 @@
 # biospore.pythonanywhere.com
-PythonAnywhere site.
+Biospore's PythonAnywhere site.
 
