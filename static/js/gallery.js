@@ -7,17 +7,6 @@ function clear_url(){
     return;
 };
 
-function insert_loader(obj){
-    var ldr = document.createElement('img');
-    ldr.setAttribute('id', 'loader');
-    ldr.setAttribute('alt', 'loader.gif');
-    ldr.setAttribute('src', "{{url_for('static', filename='pika.gif')}}");
-    ldr.setAttribute('style', 'display:block;');
-    var par = obj.parentNode;
-    par.appendChild(ldr);
-    return;
-};
-
 function del_loader(){
     var ldr = document.getElementById('loader');
     ldr.setAttribute('style', 'display:none;');
@@ -65,6 +54,11 @@ function change_image(direction){
 };
 
 function prevent_event(evt){
+    if (evt.stopPropagation){
+        evt.stopPropagation();
+    }else{
+        window.event.cancelBubble = true;
+    }
     if (evt.preventDefault) {
         evt.preventDefault();
     } else {
