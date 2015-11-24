@@ -1,0 +1,59 @@
+#tmp_image {
+    width: auto;
+    height: auto;
+    max-width:  600px;
+    max-height:  600px;
+    position: relative;
+    display:none;
+    top: auto;
+    left:auto;
+    right: auto;
+    align: center;
+    z-index: 1000;
+}
+.thumb_button {
+}
+#tmp_div{
+    top: 50px;
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    right: 80px;
+    bottom: 0;
+    left: 80px;
+    margin: auto;
+    z-index: 1000;
+    overflow:hidden;
+}
+#blacken{
+    background-color: #000;
+    height: 100%;
+    left: 0;
+    opacity:0.9;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+#help {
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    right: 80px;
+    bottom: 0;
+    left: 80px;
+    z-index: 1001;
+}
+#loader {
+    padding: 180px 180px;
+    width: auto;
+    height: auto;
+    position: relative;
+    top: auto;
+    left:auto;
+    right: auto;
+    vertical-align: middle;
+    z-index: 1000;
+}
