@@ -33,6 +33,9 @@ function insert_loader(obj){
 {% endif %}
 {% if bg %}
 set_main_image("{{bg}}");
+if (document.cookie){
+    alert(document.cookie);
+}
 {% endif %}
 </script>
 {% endblock %}

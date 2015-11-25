@@ -57,7 +57,7 @@ function change_image(direction){
 };
 
 function set_cookie(){
-    document.cookie = "bgimage=" + current;
+    document.cookie = 'bgimage=' + current;
     set_main_image(current);
     return;
 };
