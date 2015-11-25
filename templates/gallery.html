@@ -31,10 +31,21 @@ function insert_loader(obj){
     current = src;
     define_image(src);
 {% endif %}
+{% if bg %}
+set_main_image("{{bg}}");
+{% endif %}
 </script>
 {% endblock %}
 
 {% block content %}
+    <div class="row well" style="display:none;">
+        <h4 style="text-align:center;">Main image</h4>
+        <h6 style="text-align:center;">
+            <a onclick="javascript:unset_cookie();" href="#"><i style="color:gray;">Remove</i></a>
+        </h6>
+        <div id="main_image">
+        </div>
+    </div>
     <ul class="row ul">
         {% for image, thumb in gallery %}
             <li class="col-md-3 col-xs-3 col-sm-3" style="display:inline-block;text-align:center;height:150px;">

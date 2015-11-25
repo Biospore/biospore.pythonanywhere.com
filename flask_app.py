@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 from os import walk
 
 
@@ -23,11 +23,13 @@ def about():
 def gallery():
     gallery = []
     query = request.args.get('current')
+    bg = request.cookies.get('bgimage')
     images = get_all_imgs('static/images')
     for image in images:
         gallery.append(tuple(['images/'+image, 'thumbnails/'+image[:-4]+'_thumb'+image[-4:]]))
     gallery = [('images/pic7.jpg', 'thumbnails/pic7_thumb.jpg'), ('images/pic0.jpg', 'thumbnails/pic0_thumb.jpg'), ('images/pic2.jpg', 'thumbnails/pic2_thumb.jpg'), ('images/pic6.jpg', 'thumbnails/pic6_thumb.jpg'), ('images/pic4.jpg', 'thumbnails/pic4_thumb.jpg'), ('images/pic1.jpg', 'thumbnails/pic1_thumb.jpg'), ('images/pic8.jpg', 'thumbnails/pic8_thumb.jpg'), ('images/pic5.jpg', 'thumbnails/pic5_thumb.jpg'), ('images/pic3.jpg', 'thumbnails/pic3_thumb.jpg')]
-    return render_template('gallery.html', gallery=gallery, query=query)
+    response = make_response(render_template('gallery.html', gallery=gallery, query=query, bg=bg))    
+    return response
 
 
 @app.route('/barley-break/')

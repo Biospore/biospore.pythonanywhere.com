@@ -4,15 +4,50 @@
     max-width:  600px;
     max-height:  600px;
     position: relative;
-    display:none;
     top: auto;
     left:auto;
     right: auto;
-    align: center;
     z-index: 1000;
 }
-.thumb_button {
+#main_image{
+    max-width: 400px;
+    max-height: 400px;
+    text-align: center;
+    vertical-align: middle;
+    margin:auto;
+
+    
+    /*margin-bottom:100px;*/
 }
+.well > h4{
+    font-weight: bolder;
+    font-family: 'Garamond', serif !important;
+
+}
+#main {
+    width: auto;
+    height: auto;
+    max-width: 400px;
+    max-height: 400px;
+    position: relative;
+    vertical-align: middle;
+    top:auto;
+    left: auto;
+    right: auto;
+}
+
+#cook{
+    width:  auto;
+    height: auto;
+    text-align: center;
+}
+#cook, #cook:visited{
+    color: #c60!important;
+}
+#cook:hover{
+    color: #fb0 !important;
+}
+
 #tmp_div{
     top: 50px;
     width: 600px;
@@ -50,7 +85,7 @@
     padding: 180px 180px;
     width: auto;
     height: auto;
-    position: relative;
+    position: absolute;
     top: auto;
     left:auto;
     right: auto;

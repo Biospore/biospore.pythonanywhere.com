@@ -18,6 +18,7 @@
 a:visited, a {
 
     text-decoration:    none;
+    text-align:         center; 
     color:              #585 !important;
 }
 
@@ -52,7 +53,15 @@ article {
 }
 
 .footer {
-    bottom:             0px !important;
+    position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #c9cfc9;
+  border-top: 1px solid #585;
+  text-align: center;
+  display: block;
 }
 
 hr {
