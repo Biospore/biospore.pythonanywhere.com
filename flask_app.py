@@ -6,21 +6,27 @@ from os import walk
 
 app = Flask(__name__)
 
+unique_visitors = set()
+
+#hashlib.sha256(str(time.gmtime()[0:]).encode()).hexdigest()
 
 @app.route('/')
 @app.route('/index/')
 @app.route('/home/')
 def home():
-    return render_template('home.html')
+    unique_visitors.add(request.remote_addr)
+    return render_template('home.html', visitors=len(unique_visitors))
 
 
 @app.route('/about/')
 def about():
-    return render_template('about.html')
+    unique_visitors.add(request.remote_addr)
+    return render_template('about.html', visitors=len(unique_visitors))
 
 
 @app.route('/gallery/')
 def gallery():
+    unique_visitors.add(request.remote_addr)
     gallery = []
     query = request.args.get('current')
     bg = request.cookies.get('bgimage')
@@ -28,13 +34,13 @@ def gallery():
     for image in images:
         gallery.append(tuple(['images/'+image, 'thumbnails/'+image[:-4]+'_thumb'+image[-4:]]))
     gallery = [('images/pic7.jpg', 'thumbnails/pic7_thumb.jpg'), ('images/pic0.jpg', 'thumbnails/pic0_thumb.jpg'), ('images/pic2.jpg', 'thumbnails/pic2_thumb.jpg'), ('images/pic6.jpg', 'thumbnails/pic6_thumb.jpg'), ('images/pic4.jpg', 'thumbnails/pic4_thumb.jpg'), ('images/pic1.jpg', 'thumbnails/pic1_thumb.jpg'), ('images/pic8.jpg', 'thumbnails/pic8_thumb.jpg'), ('images/pic5.jpg', 'thumbnails/pic5_thumb.jpg'), ('images/pic3.jpg', 'thumbnails/pic3_thumb.jpg')]
-    response = make_response(render_template('gallery.html', gallery=gallery, query=query, bg=bg))    
+    response = make_response(render_template('gallery.html', gallery=gallery, query=query, bg=bg, visitors=len(unique_visitors)))
     return response
-
 
 @app.route('/barley-break/')
 def bb():
-    return render_template('barley-break.html')
+    unique_visitors.add(request.remote_addr)
+    return render_template('barley-break.html', visitors=len(unique_visitors))
 
 def get_all_imgs(folder):
     files = []

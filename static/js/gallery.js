@@ -124,6 +124,7 @@ function prevent_event(evt){
         evt.stopPropagation();
     }else{
         window.event.cancelBubble = true;
+        document.event.cancelBubble = true;
     }
     if (evt.preventDefault) {
         evt.preventDefault();
@@ -133,7 +134,7 @@ function prevent_event(evt){
     return evt;
 };
 
-document.onkeypress = function(evt) {
+document.onkeyup = function(evt) {
     evt = evt || window.event;
 
     if (evt.keyCode == 27) {
