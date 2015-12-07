@@ -8,6 +8,7 @@
         <meta name="theme-color" content="#ffffff">
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %} - Biospore's page</title>
+        <script type="text/javascript" src="{{url_for('static', filename='js/form.js')}}"></script>
 	    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css" />
         {% block head %}{% endblock %}
@@ -16,7 +17,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <script type="text/javascript">
-            
+
             function init() {
                 document.body.onclick = function(e) {
                     if (e.target.id == 'tbutton'){
@@ -46,6 +47,7 @@
         {% include "base/menu.html" %}
         <div class="container">
             {% block content %}{% endblock %}
+            {% include "base/form.html" %}            
         </div>
         {% include "base/footer.html" %}
         {% block tail %}{% endblock %}

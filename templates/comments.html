@@ -1,0 +1,18 @@
+{% extends "base/layout.html" %}
+
+{% block title %}Comments DB{% endblock %}
+
+{% block content %}
+{% if comments %}
+<ul class="list-group">
+    {% for comment in comments %}
+    <a href="#" class="list-group-item">
+        <p class="list-group-item-heading" style="text-align:left;">{{comment[0]}} ({{comment[1]}})</p>
+        <p class="list-group-item-text" style="background-color:lightgrey;color:black;text-align:left;">{{comment[2]}}</p>
+    </a>
+    {%endfor%}
+</ul>
+{% else %}
+    <p>No comments! Sorry!</p>
+{% endif %}
+{% endblock %}
