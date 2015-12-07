@@ -123,8 +123,12 @@ function prevent_event(evt){
     if (evt.stopPropagation){
         evt.stopPropagation();
     }else{
-        window.event.cancelBubble = true;
-        document.event.cancelBubble = true;
+        if (window.event.cancelBubble){
+            window.event.cancelBubble = true;
+        }
+        if (document.event.cancelBubble){
+            document.event.cancelBubble = true;
+        }
     }
     if (evt.preventDefault) {
         evt.preventDefault();
