@@ -136,8 +136,10 @@ function prevent_event(evt){
 
 document.onkeyup = function(evt) {
     evt = evt || window.event;
-
-    if (evt.keyCode == 27) {
+    var code = evt.keyCode;
+    if (evt.charCode && code == 0)
+        code = evt.charCode;
+    if (code == 27) {
         evt = prevent_event(evt);
         var el = document.getElementById('tmp_div');
         if (el){
@@ -153,17 +155,17 @@ document.onkeyup = function(evt) {
             par.removeChild(el);
         }
     }
-    else if (evt.keyCode == 112) {
+    else if (code == 112) {
         evt = prevent_event(evt);
         help();
     }
-    else if (evt.keyCode == 37){
+    else if (code == 37){
         evt = prevent_event(evt);
         if (current != ''){
             change_image('left');
         }
     }
-    else if (evt.keyCode == 39){
+    else if (code == 39){
         evt = prevent_event(evt);
         if (current != ''){
             change_image('right');

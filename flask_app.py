@@ -3,7 +3,6 @@
 from flask import Flask, render_template, request, make_response
 from os import walk
 from marshaller import Storage, Storage2
-from time import gmtime, strftime
 import jinja2
 
 
