@@ -20,7 +20,8 @@
 
             function init() {
                 document.body.onclick = function(e) {
-                    if (e.target.id == 'tbutton'){
+                    var target = e.target || e.srcElement;
+                    if (target.id == 'tbutton'){
                         var menu = document.getElementById('menu');
                         var lst = menu.className.split(' ');
                         var flag = true;
@@ -47,7 +48,7 @@
         {% include "base/menu.html" %}
         <div class="container">
             {% block content %}{% endblock %}
-            {% include "base/form.html" %}            
+            {% include "base/form.html" %}
         </div>
         {% include "base/footer.html" %}
         {% block tail %}{% endblock %}
