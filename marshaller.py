@@ -64,7 +64,7 @@ class Storage2:
             ET.SubElement(tnode, 'name').text = node[0]
             ET.SubElement(tnode, 'email').text = node[1]
             ET.SubElement(tnode, 'text').text = node[2]
-        return ET.tostring(storage).decode()
+        return "<?xml version='1.0' encoding='utf-8'?>" + ET.tostring(storage).decode()
 
     def unmarshal(self, obj):
         # Gets the filename as 'obj', parse it and updates self values
@@ -115,7 +115,7 @@ class Storage3:
             tnode.set('thumb', image.thumb)
             tnode.set('likes', str(image.likes))
             tnode.set('from', str(image.fromwho))
-        return ET.tostring(storage).decode()
+        return "<?xml version='1.0' encoding='utf-8'?>" + ET.tostring(storage).decode()
 
     def unmarshal(self, obj):
         tree = ET.parse(obj)
