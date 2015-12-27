@@ -54,7 +54,7 @@ def _add_comm():
 def liked():
     rit = request.args.get('i')
     who = str(request.headers.get('X-Real-IP'))
-    if i and who:
+    if rit and who:
         imgs.liked(rit, who)
         stt = imgs.marshal()
         fh = open('images.xml', 'w+')
