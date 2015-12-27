@@ -248,3 +248,11 @@ function clicked(el){
         current = '';
         };
 };
+
+function liked(img){
+    like(img);
+}
+
+function like(){
+
+}

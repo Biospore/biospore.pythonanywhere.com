@@ -85,6 +85,57 @@ class Storage2:
                 self.comments.append((name, email, text))
         return True
 
+
+class Storage3:
+    images = []
+    def add_image(self, path, thumb):
+        self.images.append(Img(0, path, thumb))
+
+    def liked(self, path, fromwho):
+        for i in self.images:
+            if i.path == path:
+                if fromwho in i.fromwho:
+                    i.likes -= 1
+                    i.fromwho.remove(fromwho)
+                else:
+                    i.likes += 1
+                    i.fromwho.append(fromwho)
+
+    def get_all_images(self):
+        imgs = []
+        for i in self.images:
+            imgs.append((i.path, i.thumb, i.likes))
+        return imgs
+
+    def marshal(self):
+        storage = ET.Element('storage')
+        for image in self.images:
+            tnode = ET.SubElement(storage, 'image')
+            tnode.set('path', image.path)
+            tnode.set('thumb', image.thumb)
+            tnode.set('likes', str(image.likes))
+            tnode.set('from', str(image.fromwho))
+        return ET.tostring(storage).decode()
+
+    def unmarshal(self, obj):
+        tree = ET.parse(obj)
+        storage = tree.getroot()
+        for child in storage:
+            img = Img(int(child.attrib['likes']), child.attrib['path'], child.attrib['thumb'])
+            img.fromwho = eval(child.attrib['from'])
+            self.images.append(img)
+        return True
+
+class Img:
+    likes = 0
+    path = ''
+    thumb = ''
+    fromwho = []
+    def __init__(self, l, p, t):
+        self.likes = l
+        self.path = p
+        self.thumb = t
+
 #a = Storage()
 #c = Storage()
 #a.add_ip("127.0.0.1")

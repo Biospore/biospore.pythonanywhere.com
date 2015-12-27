@@ -2,6 +2,10 @@
 
 {% block title %}Comments DB{% endblock %}
 {% block head %}
+<script type="text/javascript" src="{{url_for('static', filename='js/ajax.js')}}"></script>
+<script>
+    setTimeout("loadComment('comments.xml')", 1);
+</script>
 <style>
 .textmess {
     background-color:lightgrey;
@@ -14,11 +18,11 @@
 {% endblock %}
 {% block content %}
 {% if comments %}
-<ul class="list-group">
+<ul class="list-group" id='comms'>
     {% for comment in comments %}
     <a href="#" class="list-group-item">
-        <p class="list-group-item-heading" style="text-align:left;">{{comment[0]}} ({{comment[1]}})</p>
-        <p class="list-group-item-text textmess">{{comment[2]}}</p>
+        <p class="list-group-item-heading" style="text-align:left;">{{comment[0]|safe}} ({{comment[1]|safe}})</p>
+        <p class="list-group-item-text textmess">{{comment[2]|safe}}</p>
     </a>
     {%endfor%}
 </ul>

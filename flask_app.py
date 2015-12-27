@@ -2,7 +2,9 @@
 
 from flask import Flask, render_template, request, make_response
 from os import walk
-from marshaller import Storage, Storage2
+import bleach
+
+from marshaller import Storage, Storage2, Storage3
 import jinja2
 
 
@@ -11,16 +13,21 @@ app = Flask(__name__)
 
 unique_visitors = Storage()
 comments2 = Storage2()
+imgs = Storage3()
 
+def get_all_imgs(folder):
+    files = []
+    for (dirpath, dirnames, filenames) in walk(folder):
+        files.extend(filenames)
+    return files
 
 try:
-    ufile = open('marshalled.xml')
-    unique_visitors.unmarshal(ufile.read())
-    ufile.close()
-    mfile = open('comments.xml')
-    comments.unmarshal(mfile.read())
-    mfile.close()
-except:
+    unique_visitors.unmarshal('marshalled.xml')
+    comments2.unmarshal('comments.xml')
+    images = get_all_imgs('static/images')
+    imgs.unmarshal('images.xml')
+except Exception as e:
+    print(e)
     pass
 
 
@@ -34,6 +41,9 @@ def _add_comm():
     name = request.args.get('uname')
     email = request.args.get('uemail')
     text = request.args.get('umessage')
+    name = bleach.clean(name, tags=['b', 'i', 'img'], attributes=['src', 'name', 'type'])
+    email = bleach.clean(email, tags=['b', 'i', 'img'], attributes=['src', 'name', 'type'])
+    text = bleach.clean(text, tags=['b', 'i', 'img'], attributes=['src', 'name', 'type'])
     if name and email and text:
         comments2.add_comment(name, email, text)
     marsh = comments2.marshal()
@@ -41,7 +51,14 @@ def _add_comm():
     mfile.write(marsh)
     mfile.close()
 
-
+def liked():
+    rit = request.args.get('i')
+    who = str(request.headers.get('X-Real-IP'))
+    imgs.liked(rit, who)
+    stt = imgs.marshal()
+    fh = open('images.xml', 'w+')
+    fh.write(stt)
+    fh.close()
 #hashlib.sha256(str(time.gmtime()[0:]).encode()).hexdigest()
 
 @app.route('/')
@@ -56,8 +73,22 @@ def home():
 def comments():
     _add_comm()
     all_comments = comments2.get_comments()
+    cleared_comments = []
+    for comm in all_comments:
+        name, email, text = comm
+        name = bleach.clean(name, tags=['b', 'i', 'img'], attributes=['src', 'name', 'type'])
+        email = bleach.clean(email, tags=['b', 'i', 'img'], attributes=['src', 'name', 'type'])
+        text = bleach.clean(text, tags=['b', 'i', 'img'], attributes=['src', 'name', 'type'])
+        cleared_comments.append((name, email, text))
     unique_visitors.add_ip(request.headers.get('X-Real-IP'))
-    return render_template('comments.html', visitors=unique_visitors.get_counter(), comments=all_comments)
+    return render_template('comments.html', visitors=unique_visitors.get_counter(), comments=cleared_comments)
+
+@app.route('/comments/comments.xml')
+def get_comments_xml():
+    fh = open('comments.xml', 'r')
+    data = fh.read()
+    fh.close()
+    return data
 
 @app.route('/about/')
 def about():
@@ -65,19 +96,25 @@ def about():
     unique_visitors.add_ip(request.headers.get('X-Real-IP'))
     return render_template('about.html', visitors=unique_visitors.get_counter())
 
+@app.route('/gallery/images.xml')
+def get_images_xml():
+    fh = open('images.xml', 'r')
+    data = fh.read()
+    fh.close()
+    return data
+
 
 @app.route('/gallery/')
 def gallery():
     unique_visitors.add_ip(request.headers.get('X-Real-IP'))
     gallery = []
     _add_comm()
+    liked()
     query = request.args.get('current')
     bg = request.cookies.get('bgimage')
-    images = get_all_imgs('static/images')
-    for image in images:
-        gallery.append(tuple(['images/'+image, 'thumbnails/'+image[:-4]+'_thumb'+image[-4:]]))
-    gallery = [('images/pic7.jpg', 'thumbnails/pic7_thumb.jpg'), ('images/pic0.jpg', 'thumbnails/pic0_thumb.jpg'), ('images/pic2.jpg', 'thumbnails/pic2_thumb.jpg'), ('images/pic6.jpg', 'thumbnails/pic6_thumb.jpg'), ('images/pic4.jpg', 'thumbnails/pic4_thumb.jpg'), ('images/pic1.jpg', 'thumbnails/pic1_thumb.jpg'), ('images/pic8.jpg', 'thumbnails/pic8_thumb.jpg'), ('images/pic5.jpg', 'thumbnails/pic5_thumb.jpg'), ('images/pic3.jpg', 'thumbnails/pic3_thumb.jpg')]
-    response = make_response(render_template('gallery.html', gallery=gallery, query=query, bg=bg, visitors=unique_visitors.get_counter()))
+    gallery = imgs.get_all_images()
+    ip = str(request.headers.get('X-Real-IP'))
+    response = make_response(render_template('gallery.html', gallery=gallery, query=query, bg=bg, ip=ip, visitors=unique_visitors.get_counter()))
     return response
 
 @app.route('/barley-break/')
@@ -86,11 +123,7 @@ def bb():
     unique_visitors.add_ip(request.headers.get('X-Real-IP'))
     return render_template('barley-break.html', visitors=unique_visitors.get_counter())
 
-def get_all_imgs(folder):
-    files = []
-    for (dirpath, dirnames, filenames) in walk(folder):
-        files.extend(filenames)
-    return files
+
 
 #@app.route('/<page>/')
 #def autofind(page='index'):

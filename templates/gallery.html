@@ -5,10 +5,11 @@
 {% block head %}
 <script type="text/javascript" src="{{url_for('static', filename='js/gallery.js')}}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}" type="text/css" />
+<script type="text/javascript" src="{{url_for('static', filename='js/ajax.js')}}"></script>
 <script type="text/javascript">
 var images = [];
 var current = '';
-{% for image, thumb in gallery %}
+{% for image, thumb, like in gallery %}
 images.push('{{image}}');
 {% endfor %}
 function insert_loader(obj){
@@ -21,11 +22,15 @@ function insert_loader(obj){
     par.appendChild(ldr);
     return;
 };
+setTimeout("loadLikes('images.xml')", 1);
 </script>
 {% endblock %}
 
 {% block tail %}
 <script type="text/javascript">
+{% if ip %}
+    var ip = '{{ip}}';
+{% endif %}
 {% if query %}
     var src = '/static/{{query}}';
     current = src;
@@ -47,11 +52,13 @@ set_main_image("{{bg}}");
         </div>
     </div>
     <ul class="row ul">
-        {% for image, thumb in gallery %}
+        {% for image, thumb, likes in gallery %}
             <li class="col-md-3 col-xs-3 col-sm-3" style="display:inline-block;text-align:center;height:150px;">
+                Likes: <a id="{{image}}" href="?i={{image}}" onclick="return liked(this);">{{likes}}</a><br />
                 <a onclick="return clicked(this);" class="thumb_button" href="?current={{image}}" src="{{ url_for('static', filename=image) }}" style="">
                     <img src="{{url_for('static', filename=thumb) }}" alt="Image Not Found" style="position:relative; display:inline-block;vertical-align:middle;"/>
                 </a>
+
             </li>
         {% endfor %}
     </ul>
