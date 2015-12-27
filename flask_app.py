@@ -54,11 +54,12 @@ def _add_comm():
 def liked():
     rit = request.args.get('i')
     who = str(request.headers.get('X-Real-IP'))
-    imgs.liked(rit, who)
-    stt = imgs.marshal()
-    fh = open('images.xml', 'w+')
-    fh.write(stt)
-    fh.close()
+    if i and who:
+        imgs.liked(rit, who)
+        stt = imgs.marshal()
+        fh = open('images.xml', 'w+')
+        fh.write(stt)
+        fh.close()
 #hashlib.sha256(str(time.gmtime()[0:]).encode()).hexdigest()
 
 @app.route('/')
