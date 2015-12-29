@@ -20,9 +20,9 @@
 {% if comments %}
 <ul class="list-group" id='comms'>
     {% for comment in comments %}
-    <a href="#" class="list-group-item">
-        <p class="list-group-item-heading" style="text-align:left;">{{comment[0]|safe}} ({{comment[1]|safe}})</p>
-        <p class="list-group-item-text textmess">{{comment[2]|safe}}</p>
+    <a href="#" class="list-group-item container" style='overflow:hidden;'>
+        <p class="list-group-item-heading" style="text-align:left; max-height:150px;overflow:hidden;">{{comment[0]|safe}} ({{comment[1]|safe}})</p>
+        <p class="list-group-item-text textmess" style='max-height:400px;overflow:hidden;'>{{comment[2]|safe}}</p>
     </a>
     {%endfor%}
 </ul>

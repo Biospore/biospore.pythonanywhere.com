@@ -30,12 +30,14 @@ function loadComment(url){
                 var email = node.getElementsByTagName('email')[0].childNodes[0].nodeValue;
                 var text = node.getElementsByTagName('text')[0].childNodes[0].nodeValue;
                 var a = document.createElement('a');
-                a.setAttribute('class', 'list-group-item');
+                a.setAttribute('class', 'list-group-item container');
                 a.setAttribute('href', '#');
+                a.setAttribute('style', 'overflow:hidden;');
                 var p1 = document.createElement('p');
                 var p2 = document.createElement('p');
                 p1.setAttribute('class', 'list-group-item-heading');
-                p1.setAttribute('style', 'text-align:left;');
+                p1.setAttribute('style', 'text-align:left; max-height:150px;overflow:hidden;');
+                p2.setAttribute('style', 'max-height:400px;overflow:hidden;');
                 p1.innerHTML = name + ' (' + email + ')';
                 p2.setAttribute('class', 'list-group-item-text textmess');
                 p2.innerHTML = text;
